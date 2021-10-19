@@ -27,3 +27,19 @@ airbnb = pd.read_csv('https://github.com/marios096/streamlit/blob/main/data.csv?
 #s = st.text_input('Type a name in the box below')
 
 st.write(f'Hello {airbnb.head()}')
+
+#trying to clear the duplicates 19_10_2021
+#drop duplicates from suburb, address and date step 1
+#airbnb=airbnb.drop_duplicates(subset=['Suburb','Address','Date','Price','Rooms','Type','Method','SellerG','Regionname','Postcode','Propertycount','Distance','CouncilArea'], keep='last')
+#step 2
+#airbnb=airbnb.drop_duplicates(subset=['Suburb','Address','Date','Price'], keep='last')
+#airbnb.loc[airbnb.duplicated(subset=['Suburb','Address','Date','Price']),:]
+#temp=airbnb[airbnb.duplicated(subset=['Suburb','Address','Date'])]
+#temp
+airbnb.sort_values(by=['Price'], inplace=True)
+df = airbnb[airbnb[(['Suburb','Address','Date'])].duplicated(keep=False)]
+#df.index
+
+#the drop must be done in airbnb to change the rows of csv
+df=df.dropna(subset=['Price'])
+df
