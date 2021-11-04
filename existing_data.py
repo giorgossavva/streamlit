@@ -55,7 +55,7 @@ def streamlit_app():
         st.subheader("Dates")
         from_date = st.date_input("From Date:", datetime.date(2020, 9, 1))
         to_date = st.date_input("To Date:", datetime.date.today())
-      #  filtered_df = cyprus_df[cyprus_df["date"].isin(pd.date_range(from_date, to_date))]
+        filtered_df = cyprus_vac_df[cyprus_vac_df["Date"].isin(pd.date_range(from_date, to_date))]
 
     with col2:
         st.subheader("Options")
@@ -64,28 +64,28 @@ def streamlit_app():
         else:
             yaxistype = "linear"
 
-        # st.dataframe(filtered_df)
-       # if st.checkbox('5 Days Moving Average'):
-     #       plot_df = filtered_df.rolling(5).sum()
-     #   else:
-       #     plot_df = filtered_df
+        st.dataframe(filtered_df)
+        if st.checkbox('5 Days Moving Average'):
+            plot_df = filtered_df.rolling(5).sum()
+        else:
+            plot_df = filtered_df
 
     with col3:
         st.subheader("Features")
         multiselection = st.multiselect("", features, default=features)
 
-  #  plot_df['date'] = filtered_df["date"]
+     plot_df['Date'] = filtered_df["Date"]
 
-   # if len(multiselection) > 0:
-    #    with st.beta_expander("Raw data", expanded=False):
-    #        st.dataframe(plot_df[["date"] + multiselection])
+    if len(multiselection) > 0:
+        with st.beta_expander("Raw data", expanded=False):
+            st.dataframe(plot_df[["Date"] + multiselection])
 
-    #    plot_date(plot_df, multiselection, colors_dict, yaxistype)
+        plot_date(plot_df, multiselection, colors_dict, yaxistype)
 
-    st.subheader(
-        'Rapid test units for ' + date.today().strftime('%d-%m-%Y') + ' (by [@lolol20](https://twitter.com/lolol20))')
+  #  st.subheader(
+   #     'Rapid test units for ' + date.today().strftime('%d-%m-%Y') + ' (by [@lolol20](https://twitter.com/lolol20))')
 
-    components.iframe("https://covidmap.cy/", height=480, scrolling=False)
+   # components.iframe("https://covidmap.cy/", height=480, scrolling=False)
 
 
 @st.cache(ttl=60 * 60 * 1, allow_output_mutation=True)
