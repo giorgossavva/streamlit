@@ -6,6 +6,7 @@ run the app by installing streamlit with pip and typing
 """
 
 import streamlit as st
+import existing_data
 import pandas as pd
 #import matplotlib.pyplot as plt
 import numpy as np
@@ -14,7 +15,7 @@ import numpy as np
 import datetime as dt
 
 # Read in the dataset
-airbnb = pd.read_csv('https://github.com/marios096/streamlit/blob/main/data.csv?raw=true')
+#i will put to comments this airbnb = pd.read_csv('https://github.com/marios096/streamlit/blob/main/data.csv?raw=true')
 
 #st.title('Simple Streamlit App')
 
@@ -26,7 +27,7 @@ airbnb = pd.read_csv('https://github.com/marios096/streamlit/blob/main/data.csv?
 #
 #s = st.text_input('Type a name in the box below')
 
-st.write(f'Hello {airbnb.head()}')
+#i will put to comments this st.write(f'Hello {airbnb.head()}')
 
 #trying to clear the duplicates 19_10_2021
 #drop duplicates from suburb, address and date step 1
@@ -36,10 +37,20 @@ st.write(f'Hello {airbnb.head()}')
 #airbnb.loc[airbnb.duplicated(subset=['Suburb','Address','Date','Price']),:]
 #temp=airbnb[airbnb.duplicated(subset=['Suburb','Address','Date'])]
 #temp
-airbnb.sort_values(by=['Price'], inplace=True)
-df = airbnb[airbnb[(['Suburb','Address','Date'])].duplicated(keep=False)]
+#i will put to comments this airbnb.sort_values(by=['Price'], inplace=True)
+#i will put to comments this df = airbnb[airbnb[(['Suburb','Address','Date'])].duplicated(keep=False)]
 #df.index
 
 #the drop must be done in airbnb to change the rows of csv
-df=df.dropna(subset=['Price'])
-df
+#i will put to comments this df=df.dropna(subset=['Price'])
+#i will put to comments this df
+
+PAGES = {
+    "About us": existing_data
+}
+
+st.set_page_config(page_title="Covid19-Cyprus", page_icon="🧊", layout='wide', initial_sidebar_state='auto')
+st.sidebar.title('🧭 Navigation')
+selection = st.sidebar.radio("", list(PAGES.keys()))
+page = PAGES[selection]
+page.streamlit_app()
